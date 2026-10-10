@@ -4,13 +4,15 @@
 
 # esai
 
-**A daily pause for your apps.**
+**Forgot to log out of WeChat after work? I've got you.**
 
 A native macOS menu bar app that closes WeChat or multiple selected apps on a daily schedule.
 
 [Download](https://github.com/fitzsmith2000/esai/releases/latest) · [简体中文](README.md) · [Report an issue](https://github.com/fitzsmith2000/esai/issues)
 
 </div>
+
+![esai menu bar showcase](docs/screenshots/hero.jpg)
 
 ## Features
 
@@ -23,11 +25,30 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 - English, Simplified Chinese, or automatic system language.
 - Local operation without accounts or telemetry. v1.5.3: approximately 1.21 MB DMG and 2.72 MB app.
 
-## Preview
+## More screenshots
 
-<img src="docs/screenshots/dashboard.png" width="360" alt="Dashboard preview" /> <img src="docs/screenshots/schedule.png" width="360" alt="Schedule preview" />
+The hero uses a real esai interface capture with a composed desktop and menu bar. Screenshots use Simplified Chinese; the app also supports English.
 
-Preview-mode screenshots use Simplified Chinese. Times and running status depend on the machine.
+<details>
+<summary>Schedule: daily time, time zone, and local/UTC conversion</summary>
+
+![Schedule settings](docs/screenshots/schedule.png)
+
+</details>
+
+<details>
+<summary>Apps: WeChat by default, with multiple apps supported</summary>
+
+![App selection](docs/screenshots/apps.png)
+
+</details>
+
+<details>
+<summary>Appearance: Liquid Glass and custom accent colors</summary>
+
+![Appearance settings](docs/screenshots/appearance.png)
+
+</details>
 
 ## Install
 

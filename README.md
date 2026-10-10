@@ -17,6 +17,8 @@
 
 </div>
 
+![esai 状态栏主视觉：点击花朵查看定时关闭计划](docs/screenshots/hero.jpg)
+
 ## 亮点
 
 - **常驻状态栏**：轻巧的 esai 花朵图标，点开就能查看倒计时、下次执行时间和应用运行状态。
@@ -28,20 +30,30 @@
 - **你的颜色、你的语言**：六种经典强调色、自定义 HEX 和取色器；浅色、深色、跟随系统；简体中文、English、语言自动跟随。
 - **轻量、本地运行**：v1.5.3 的 DMG 约 **1.21 MB**，应用本体约 **2.72 MB**，无需登录账号。
 
-## 界面预览
+## 更多界面
 
-以下为应用的独立预览模式截图；时间换算和运行状态会随本机环境变化。
+主视觉使用真实 esai 界面截图，桌面与菜单栏经过排版。展开以下条目查看设置细节。
 
-<table>
-<tr>
-<td align="center"><b>状态与倒计时</b><br /><img src="docs/screenshots/dashboard.png" width="360" alt="状态面板" /></td>
-<td align="center"><b>时间与时区</b><br /><img src="docs/screenshots/schedule.png" width="360" alt="计划设置" /></td>
-</tr>
-<tr>
-<td align="center"><b>应用选择</b><br /><img src="docs/screenshots/apps.png" width="360" alt="关闭应用设置" /></td>
-<td align="center"><b>外观与强调色</b><br /><img src="docs/screenshots/appearance.png" width="360" alt="外观设置" /></td>
-</tr>
-</table>
+<details>
+<summary>时间与时区：选择每天的关闭时间，预览本机与 UTC 换算</summary>
+
+![时间与时区设置](docs/screenshots/schedule.png)
+
+</details>
+
+<details>
+<summary>关闭应用：微信默认，可同时选择多个应用</summary>
+
+![关闭应用设置](docs/screenshots/apps.png)
+
+</details>
+
+<details>
+<summary>外观：液态玻璃、六种强调色及自定义颜色</summary>
+
+![外观设置](docs/screenshots/appearance.png)
+
+</details>
 
 ## 安装
 
