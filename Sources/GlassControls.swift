@@ -249,3 +249,66 @@ private final class EsaiSegmentedView: NSView {
     }
     @objc private func select(_ button:NSButton) { if ids.indices.contains(button.tag) { onSelect(ids[button.tag]) } }
 }
+
+// Thin knob adapted from Licoy/Quosparr (formerly CodexRunway),
+// PolishedScrollView.swift at 411240f4bd758e8d5f788b94e4187ba161374ebb; AGPL-3.0.
+// Keep SwiftUI's scroll host and sizing; customize only its native scroller.
+struct EsaiScrollChrome: NSViewRepresentable {
+    func makeNSView(context: Context) -> EsaiScrollChromeProbe { EsaiScrollChromeProbe() }
+    func updateNSView(_ view: EsaiScrollChromeProbe, context: Context) { view.scheduleConfiguration() }
+}
+
+final class EsaiScrollChromeProbe: NSView {
+    private var pending = false
+    private var styleObserver: NSObjectProtocol?
+    override init(frame: NSRect) {
+        super.init(frame: frame)
+        styleObserver = NotificationCenter.default.addObserver(
+            forName: NSScroller.preferredScrollerStyleDidChangeNotification,
+            object: nil, queue: .main) { [weak self] _ in self?.scheduleConfiguration() }
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    deinit { if let observer = styleObserver { NotificationCenter.default.removeObserver(observer) } }
+    override func hitTest(_ point: NSPoint) -> NSView? { nil }
+    override func viewDidMoveToWindow() { super.viewDidMoveToWindow(); scheduleConfiguration() }
+    override func viewDidMoveToSuperview() { super.viewDidMoveToSuperview(); scheduleConfiguration() }
+    func scheduleConfiguration() {
+        guard !pending else { return }
+        pending = true
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.pending = false
+            guard let scroll = self.enclosingScrollView else { return }
+            if scroll.scrollerStyle != .overlay { scroll.scrollerStyle = .overlay }
+            scroll.autohidesScrollers = true
+            scroll.drawsBackground = false
+            scroll.contentView.drawsBackground = false
+            scroll.hasHorizontalScroller = false
+            if !(scroll.verticalScroller is EsaiThinOverlayScroller) {
+                let scroller = EsaiThinOverlayScroller()
+                scroller.scrollerStyle = .overlay
+                scroller.controlSize = .small
+                scroll.verticalScroller = scroller
+            }
+        }
+    }
+}
+
+final class EsaiThinOverlayScroller: NSScroller {
+    override class var isCompatibleWithOverlayScrollers: Bool { true }
+    override class func scrollerWidth(for controlSize: NSControl.ControlSize,
+                                      scrollerStyle: NSScroller.Style) -> CGFloat { 7 }
+    override var isOpaque: Bool { false }
+    override func draw(_ dirtyRect: NSRect) { drawKnob() }
+    override func drawKnobSlot(in slotRect: NSRect, highlight flag: Bool) {}
+    override func drawKnob() {
+        let nativeKnob = rect(for: .knob)
+        guard nativeKnob.height > 2 else { return }
+        let knob = NSRect(x: bounds.midX - 1.5, y: nativeKnob.minY + 1,
+                          width: 3, height: max(3, nativeKnob.height - 2))
+        let dark = effectiveAppearance.bestMatch(from: [.darkAqua, .aqua]) == .darkAqua
+        (dark ? NSColor.white.withAlphaComponent(0.36)
+              : NSColor.black.withAlphaComponent(0.22)).setFill()
+        NSBezierPath(roundedRect: knob, xRadius: 1.5, yRadius: 1.5).fill()
+    }
+}

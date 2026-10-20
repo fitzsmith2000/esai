@@ -8,7 +8,7 @@
 
 原生 macOS 状态栏应用，按每日计划关闭微信或你选定的多个应用。
 
-[![Release](https://img.shields.io/badge/release-v1.5.3-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
+[![Release](https://img.shields.io/badge/release-v1.5.6-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
 ![macOS](https://img.shields.io/badge/macOS-13%2B-333333)
 ![Apple Silicon](https://img.shields.io/badge/Apple_Silicon-arm64-288653)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
@@ -26,13 +26,27 @@
 - **按你所在的时区安排**：UTC、美西、美东、伦敦、北京、东京可选，自动换算本机时间。
 - **自动处理夏令时**：地区计划保持当地钟表时间；UTC 计划全年固定。
 - **睡眠后补执行**：唤醒后补执行当天已到期的任务，每天最多执行一次。
-- **原生 Liquid Glass**：macOS 26 及以上支持玻璃控件和分段标签的流动切换，旧版系统使用兼容样式。
+- **原生 Liquid Glass**：支持透明玻璃面板或实色背景；macOS 26 及以上支持玻璃控件和分段标签的流动切换，旧版系统使用兼容样式。
+- **更轻的交互**：3 pt 半透明无底色滚动条、小号启用开关；弹窗打开时主动取得焦点，修复首次显示偏暗的问题。
 - **你的颜色、你的语言**：六种经典强调色、自定义 HEX 和取色器；浅色、深色、跟随系统；简体中文、English、语言自动跟随。
-- **轻量、本地运行**：v1.5.3 的 DMG 约 **1.21 MB**，应用本体约 **2.72 MB**，无需登录账号。
+- **轻量、本地运行**：v1.5.6 的 DMG 约 **1.97 MB**，应用本体约 **2.83 MB**，无需登录账号。
+
+## 实机截图
+
+以下图片来自真实 Mac 上运行的 esai，保留状态栏花朵图标、弹窗尖角和桌面背景。
+
+<table>
+<tr>
+<td align="center"><b>v1.5.6 · 当前版本实拍</b><br /><img src="docs/screenshots/v1.5.6/menubar-live.png" width="400" alt="esai 1.5.6 真实状态栏弹窗，小号开关与细滚动条" /></td>
+<td align="center"><b>透明玻璃 · 用户实拍</b><br /><img src="docs/screenshots/v1.5.6/glass-user-photo.png" width="400" alt="用户提供的 esai 透明玻璃背景实机截图" /></td>
+</tr>
+</table>
+
+左图为本次发布版本的实拍；右图为用户提供的透明玻璃效果截图。上方带文案的绿色主视觉为宣传排版图。
 
 ## 更多界面
 
-主视觉使用真实 esai 界面截图，桌面与菜单栏经过排版。展开以下条目查看设置细节。
+以下为早期版本的界面预览，用于说明设置结构；当前版本实机效果见上方截图。
 
 <details>
 <summary>时间与时区：选择每天的关闭时间，预览本机与 UTC 换算</summary>
@@ -65,7 +79,7 @@
 
 ### 手动安装
 
-1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.5.3-apple-silicon.dmg`。
+1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.5.6-apple-silicon.dmg`。
 2. 打开 DMG，将「esai 定时关闭」拖入 `Applications`。
 3. 打开应用，点击状态栏花朵图标。
 

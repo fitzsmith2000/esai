@@ -68,6 +68,7 @@ enum L10n {
         "保存后重新排期":"Reschedule after saving",
         "只预约未来时间；当天已执行过的任务不会因修改时间重复执行。":"Schedules a future time. Editing does not repeat a task already handled that day.",
         "外观模式":"Appearance", "跟随系统":"Follow system", "浅色":"Light", "深色":"Dark", "强调色":"Accent color",
+        "透明玻璃背景":"Transparent glass background", "面板会透出桌面背景；关闭后使用实色面板。":"The panel reveals the desktop behind it; turn off for a solid surface.",
         "选择经典颜色，或调出属于你的 esai。":"Choose a classic color or make esai your own.",
         "esai 绿":"esai", "经典蓝":"Blue", "鸢尾紫":"Violet", "琥珀橙":"Amber", "玫瑰红":"Rose", "湖水青":"Teal",
         "自定义颜色":"Custom color", "自定义强调色取色器":"Custom accent color picker", "强调色 HEX 色值":"Accent HEX color",

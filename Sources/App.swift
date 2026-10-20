@@ -24,6 +24,7 @@ final class TimerModel: ObservableObject {
     @Published var nextTime = ""
     @Published var nextDate = ""
     @Published var appearance = "system"
+    @Published var glassBackground = true
     @Published private(set) var language = AppLanguage.system
     @Published private(set) var resolvedLanguage = AppLanguage.system.resolved()
     @Published private(set) var accentHex = AccentPreset.choices[0].hex
@@ -44,6 +45,7 @@ final class TimerModel: ObservableObject {
         lastResult = preview ? "尚未执行" : (defaults.string(forKey: "lastResult") ?? "尚未执行")
         lastRun = preview ? nil : defaults.object(forKey: "lastRun") as? Date
         appearance = preview ? (CommandLine.arguments.contains("--preview-dark") ? "dark" : "light") : (defaults.string(forKey:"appearance") ?? "system")
+        glassBackground = preview ? !CommandLine.arguments.contains("--preview-opaque") : (defaults.object(forKey:"glassBackground") as? Bool ?? true)
         language = AppLanguage(rawValue:preview ? (ProcessInfo.processInfo.environment["ESAI_PREVIEW_LANGUAGE"] ?? "zh-Hans") : (defaults.string(forKey:"language") ?? "system")) ?? .system
         resolvedLanguage = language.resolved()
         let savedAccent = preview ? ProcessInfo.processInfo.environment["ESAI_PREVIEW_ACCENT"] : defaults.string(forKey:"accentHex")
@@ -254,6 +256,10 @@ final class TimerModel: ObservableObject {
         appearance = value
         if !preview { defaults.set(value,forKey:"appearance") }
     }
+    func setGlassBackground(_ value: Bool) {
+        glassBackground = value
+        if !preview { defaults.set(value,forKey:"glassBackground") }
+    }
     func setLanguage(_ value: AppLanguage) {
         language = value; resolvedLanguage = value.resolved()
         if !preview { defaults.set(value.rawValue,forKey:"language") }
@@ -292,10 +298,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private var model: TimerModel!
     private var screenObserver: NSObjectProtocol?
     private var languageSubscription: AnyCancellable?
+    private var localPanelMonitor: Any?
+    private var globalPanelMonitor: Any?
+    private var panelActivationObserver: NSObjectProtocol?
+    private var panelResignObserver: NSObjectProtocol?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
-        let preview = CommandLine.arguments.contains("--preview") || CommandLine.arguments.contains("--ui-check")
+        let preview = CommandLine.arguments.contains("--preview") || CommandLine.arguments.contains("--ui-check") || CommandLine.arguments.contains("--focus-check")
         if preview { NSApp.appearance = NSAppearance(named:CommandLine.arguments.contains("--preview-dark") ? .darkAqua : .aqua) }
         model = TimerModel(preview:preview)
         statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
@@ -308,14 +318,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
             self?.statusItem.button?.toolTip = L10n.text("esai · 定时关闭应用",language:language)
         }
         statusItem.button?.target = self; statusItem.button?.action = #selector(togglePanel)
-        popover = NSPopover(); popover.behavior = CommandLine.arguments.contains("--ui-check") ? .applicationDefined : .transient; popover.delegate = self; popover.animates = false
+        popover = NSPopover(); popover.behavior = .applicationDefined; popover.delegate = self; popover.animates = false
         popover.contentViewController = PanelHostController(model:model)
         screenObserver = NotificationCenter.default.addObserver(forName:NSApplication.didChangeScreenParametersNotification,object:nil,queue:.main) { [weak self] _ in
             guard let self = self,self.popover.isShown else { return }
             self.fitPopoverToScreen()
             self.keepPopoverOnScreen()
         }
-        if CommandLine.arguments.contains("--ui-check") {
+        if CommandLine.arguments.contains("--focus-check") {
+            DispatchQueue.main.asyncAfter(deadline:.now()+0.3) {
+                self.togglePanel()
+                DispatchQueue.main.asyncAfter(deadline:.now()+0.5) {
+                    let key = self.popover.contentViewController?.view.window?.isKeyWindow == true
+                    let active = NSApp.isActive
+                    print("FOCUS_CHECK active=\(active) key=\(key) shown=\(self.popover.isShown)")
+                    guard active && key && self.popover.isShown else { exit(2) }
+                    NSApp.terminate(nil)
+                }
+            }
+        } else if CommandLine.arguments.contains("--ui-check") {
             DispatchQueue.main.asyncAfter(deadline:.now()+0.3) { self.runUICheck() }
         } else if preview {
             showPreview()
@@ -330,10 +351,60 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         else if let button = statusItem.button {
             model.refreshLabels()
             fitPopoverToScreen()
-            popover.show(relativeTo:button.bounds,of:button,preferredEdge:.minY)
+            // Activate before showing so the first material frame is active.
             NSApp.activate(ignoringOtherApps:true)
-            DispatchQueue.main.async { self.keepPopoverOnScreen() }
+            popover.show(relativeTo:button.bounds,of:button,preferredEdge:.minY)
+            focusPanel()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self, self.popover.isShown else { return }
+                self.keepPopoverOnScreen()
+                self.focusPanel()
+            }
         }
+    }
+
+    private func focusPanel() {
+        guard popover.isShown, let window = popover.contentViewController?.view.window else { return }
+        window.makeKey()
+        window.orderFront(nil)
+    }
+
+    func popoverDidShow(_ notification: Notification) {
+        focusPanel()
+        stopPanelMonitors()
+        // applicationDefined avoids transient dismissal racing with makeKey or
+        // the second status-button click. Own only outside-click / Escape dismissal.
+        localPanelMonitor = NSEvent.addLocalMonitorForEvents(matching:[.leftMouseDown,.rightMouseDown,.keyDown]) { [weak self] event in
+            guard let self = self, self.popover.isShown else { return event }
+            if event.type == .keyDown {
+                if event.keyCode == 53 { self.popover.performClose(nil); return nil }
+                return event
+            }
+            guard let window = self.popover.contentViewController?.view.window else { return event }
+            if event.window === window || event.window === self.statusItem.button?.window || event.window?.sheetParent === window { return event }
+            // Native menus and color panels remain interactive above the popover.
+            if let other = event.window, other is NSPanel || other.level > .normal { return event }
+            self.popover.performClose(nil)
+            return event
+        }
+        globalPanelMonitor = NSEvent.addGlobalMonitorForEvents(matching:[.leftMouseDown,.rightMouseDown]) { [weak self] _ in
+            self?.popover.performClose(nil)
+        }
+        panelActivationObserver = NotificationCenter.default.addObserver(forName:NSApplication.didBecomeActiveNotification,object:NSApp,queue:.main) { [weak self] _ in
+            self?.focusPanel()
+        }
+        panelResignObserver = NotificationCenter.default.addObserver(forName:NSApplication.didResignActiveNotification,object:NSApp,queue:.main) { [weak self] _ in
+            self?.popover.performClose(nil)
+        }
+    }
+
+    func popoverDidClose(_ notification: Notification) { stopPanelMonitors() }
+
+    private func stopPanelMonitors() {
+        if let monitor = localPanelMonitor { NSEvent.removeMonitor(monitor); localPanelMonitor = nil }
+        if let monitor = globalPanelMonitor { NSEvent.removeMonitor(monitor); globalPanelMonitor = nil }
+        if let observer = panelActivationObserver { NotificationCenter.default.removeObserver(observer); panelActivationObserver = nil }
+        if let observer = panelResignObserver { NotificationCenter.default.removeObserver(observer); panelResignObserver = nil }
     }
 
     private func fitPopoverToScreen() {

@@ -2,6 +2,7 @@ import AppKit
 import SwiftUI
 
 struct TimerPanel: View {
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @ObservedObject var model: TimerModel
     @ObservedObject private var navigation: PanelNavigation
     @State private var appSearch = ""
@@ -32,13 +33,17 @@ struct TimerPanel: View {
                 }
                 .padding(.horizontal,16)
                 .frame(maxWidth:.infinity,alignment:.leading)
+                .background(EsaiScrollChrome().allowsHitTesting(false))
             }
             .frame(maxWidth:.infinity,maxHeight:.infinity)
             EsaiHairline()
             footer
         }
         .frame(width:model.panelSize.width,height:model.panelSize.height,alignment:.topLeading)
-        .background(EsaiSurface.panel)
+        .background {
+            // NSPopover supplies the native material, including its arrow.
+            if !model.glassBackground || reduceTransparency { EsaiSurface.panel }
+        }
         .tint(accent)
         .preferredColorScheme(model.colorScheme)
         .environment(\.locale,model.resolvedLanguage.locale)
@@ -103,7 +108,7 @@ struct TimerPanel: View {
                     }.buttonStyle(.plain).help(t("修改关闭时间"))
                     Spacer()
                     Toggle(t("启用"),isOn:Binding(get:{model.state.enabled},set:{model.setEnabled($0)}))
-                        .toggleStyle(.checkbox).font(.callout.weight(.medium))
+                        .toggleStyle(.switch).controlSize(.mini).font(.caption.weight(.medium))
                         .accessibilityLabel(t("启用定时关闭应用")).fixedSize().disabled(model.selectedApplications.isEmpty)
                 }
                 VStack(alignment:.leading,spacing:6) {
@@ -340,6 +345,15 @@ struct TimerPanel: View {
                     .init(id:"dark",title:t("深色"))
                 ],accent:accent,label:t("外观模式"))
             }
+            VStack(alignment:.leading,spacing:8) {
+                Toggle(t("透明玻璃背景"),isOn:Binding(get:{model.glassBackground},set:{model.setGlassBackground($0)}))
+                    .toggleStyle(.switch).controlSize(.small).font(.callout.weight(.medium))
+                Text(t("面板会透出桌面背景；关闭后使用实色面板。"))
+                    .font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal:false,vertical:true)
+            }
+            .padding(12)
+            .esaiCard(.sunken)
             EsaiHairline()
             VStack(alignment:.leading,spacing:12) {
                 VStack(alignment:.leading,spacing:4) {

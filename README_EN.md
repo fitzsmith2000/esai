@@ -20,14 +20,28 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 - WeChat selected by default; choose multiple installed apps or add `.app` bundles from other folders.
 - Configurable time in UTC, Los Angeles, New York, London, Beijing, or Tokyo, with local time conversion and automatic daylight saving handling.
 - Catch up after wake for the current schedule date, with at most one execution per day.
-- Native Liquid Glass controls and flowing tab selection on macOS 26 or later, with compatible controls on older systems.
+- Transparent glass or solid panel background, with native Liquid Glass controls and flowing tab selection on macOS 26 or later.
+- Trackless 3 pt translucent scrollbar and a compact enable switch. Popovers take focus when opened to fix the initially dim appearance.
 - Six accent presets, custom HEX colors, and a color picker; light, dark, or system appearance.
 - English, Simplified Chinese, or automatic system language.
-- Local operation without accounts or telemetry. v1.5.3: approximately 1.21 MB DMG and 2.72 MB app.
+- Local operation without accounts or telemetry. v1.5.6: approximately 1.97 MB DMG and 2.83 MB app.
+
+## Real Mac screenshots
+
+These images show esai running on a real Mac, including the menu bar flower, popover arrow, and desktop context.
+
+<table>
+<tr>
+<td align="center"><b>v1.5.6 · Current release</b><br /><img src="docs/screenshots/v1.5.6/menubar-live.png" width="400" alt="Actual esai 1.5.6 menu bar popover with compact switch and thin scrollbar" /></td>
+<td align="center"><b>Transparent glass · User capture</b><br /><img src="docs/screenshots/v1.5.6/glass-user-photo.png" width="400" alt="User-supplied capture of esai's transparent glass background" /></td>
+</tr>
+</table>
+
+The left image was captured from this release. The right image is a user-supplied capture of the glass appearance. The green hero above is a composed promotional image.
 
 ## More screenshots
 
-The hero uses a real esai interface capture with a composed desktop and menu bar. Screenshots use Simplified Chinese; the app also supports English.
+The settings previews below show an earlier version and illustrate the settings structure. See the real Mac captures above for the current appearance. The app also supports English.
 
 <details>
 <summary>Schedule: daily time, time zone, and local/UTC conversion</summary>
