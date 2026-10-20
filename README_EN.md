@@ -12,7 +12,7 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 
 </div>
 
-![esai menu bar showcase](docs/screenshots/hero.jpg)
+![esai: a daily pause for WeChat, captured on a real Mac](docs/screenshots/product-v2/overview.jpg)
 
 ## Features
 
@@ -28,41 +28,16 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 
 ## Real Mac screenshots
 
-These images show esai running on a real Mac, including the menu bar flower, popover arrow, and desktop context.
+These product images use real Mac captures. The original esai interface, menu bar flower, and popover arrow are preserved; surrounding webpages and unrelated menu bar content have been removed. The glass image retains the real translucent colors inside the panel.
 
 <table>
 <tr>
-<td align="center"><b>v1.5.6 · Current release</b><br /><img src="docs/screenshots/v1.5.6/menubar-live.png" width="400" alt="Actual esai 1.5.6 menu bar popover with compact switch and thin scrollbar" /></td>
-<td align="center"><b>Transparent glass · User capture</b><br /><img src="docs/screenshots/v1.5.6/glass-user-photo.png" width="400" alt="User-supplied capture of esai's transparent glass background" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/multiple-apps.jpg" alt="Multiple apps on one schedule, captured on a real Mac" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/transparent-glass.jpg" alt="Native transparent glass, captured on a real Mac" /></td>
 </tr>
 </table>
 
-The left image was captured from this release. The right image is a user-supplied capture of the glass appearance. The green hero above is a composed promotional image.
-
-## More screenshots
-
-The settings previews below show an earlier version and illustrate the settings structure. See the real Mac captures above for the current appearance. The app also supports English.
-
-<details>
-<summary>Schedule: daily time, time zone, and local/UTC conversion</summary>
-
-![Schedule settings](docs/screenshots/schedule.png)
-
-</details>
-
-<details>
-<summary>Apps: WeChat by default, with multiple apps supported</summary>
-
-![App selection](docs/screenshots/apps.png)
-
-</details>
-
-<details>
-<summary>Appearance: Liquid Glass and custom accent colors</summary>
-
-![Appearance settings](docs/screenshots/appearance.png)
-
-</details>
+![Custom accent colors and appearance, captured on a real Mac](docs/screenshots/product-v2/appearance.jpg)
 
 ## Install
 

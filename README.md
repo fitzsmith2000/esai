@@ -17,7 +17,7 @@
 
 </div>
 
-![esai 状态栏主视觉：点击花朵查看定时关闭计划](docs/screenshots/hero.jpg)
+![下班了总忘了登出微信？我来帮你。基于 esai 实机截图制作](docs/screenshots/product-v2/overview.jpg)
 
 ## 亮点
 
@@ -33,41 +33,16 @@
 
 ## 实机截图
 
-以下图片来自真实 Mac 上运行的 esai，保留状态栏花朵图标、弹窗尖角和桌面背景。
+以下展示基于真实 Mac 截图制作，保留 esai 的原始界面、状态栏花朵与弹窗尖角；周边网页和其他状态栏内容已移除。透明玻璃图保留面板内部的真实透色效果。
 
 <table>
 <tr>
-<td align="center"><b>v1.5.6 · 当前版本实拍</b><br /><img src="docs/screenshots/v1.5.6/menubar-live.png" width="400" alt="esai 1.5.6 真实状态栏弹窗，小号开关与细滚动条" /></td>
-<td align="center"><b>透明玻璃 · 用户实拍</b><br /><img src="docs/screenshots/v1.5.6/glass-user-photo.png" width="400" alt="用户提供的 esai 透明玻璃背景实机截图" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/multiple-apps.jpg" alt="一个计划，收好多个应用：esai 多应用关闭实机展示" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/transparent-glass.jpg" alt="轻轻透出桌面：esai 透明玻璃面板实机展示" /></td>
 </tr>
 </table>
 
-左图为本次发布版本的实拍；右图为用户提供的透明玻璃效果截图。上方带文案的绿色主视觉为宣传排版图。
-
-## 更多界面
-
-以下为早期版本的界面预览，用于说明设置结构；当前版本实机效果见上方截图。
-
-<details>
-<summary>时间与时区：选择每天的关闭时间，预览本机与 UTC 换算</summary>
-
-![时间与时区设置](docs/screenshots/schedule.png)
-
-</details>
-
-<details>
-<summary>关闭应用：微信默认，可同时选择多个应用</summary>
-
-![关闭应用设置](docs/screenshots/apps.png)
-
-</details>
-
-<details>
-<summary>外观：液态玻璃、六种强调色及自定义颜色</summary>
-
-![外观设置](docs/screenshots/appearance.png)
-
-</details>
+![属于你的颜色，属于你的 esai：强调色和外观设置实机展示](docs/screenshots/product-v2/appearance.jpg)
 
 ## 安装
 
