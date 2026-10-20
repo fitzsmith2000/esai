@@ -4,8 +4,6 @@
 
 # esai
 
-**Forgot to log out of WeChat after work? I've got you.**
-
 A native macOS menu bar app that closes WeChat or multiple selected apps on a daily schedule.
 
 [Download](https://github.com/fitzsmith2000/esai/releases/latest) · [简体中文](README.md) · [Report an issue](https://github.com/fitzsmith2000/esai/issues)
@@ -28,7 +26,7 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 
 ## Real Mac screenshots
 
-These product images use real Mac captures. The original esai interface, menu bar flower, and popover arrow are preserved; surrounding webpages and unrelated menu bar content have been removed. The glass image retains the real translucent colors inside the panel.
+These images use real Mac captures. Only the esai flower is retained in the menu bar. Surroundings are removed from the solid-panel captures; the transparent capture keeps its desktop and webpage background to show the glass effect.
 
 <table>
 <tr>

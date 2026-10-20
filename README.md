@@ -4,7 +4,7 @@
 
 # esai 定时关闭
 
-**下班总忘记登出电脑微信？我来帮你。**
+**下班总忘了关闭软件？我来帮你。**
 
 原生 macOS 状态栏应用，按每日计划关闭微信或你选定的多个应用。
 
@@ -17,7 +17,7 @@
 
 </div>
 
-![下班了总忘了登出微信？我来帮你。基于 esai 实机截图制作](docs/screenshots/product-v2/overview.jpg)
+![下班总忘了关闭软件？我来帮你。基于 esai 实机截图制作](docs/screenshots/product-v2/overview.jpg)
 
 ## 亮点
 
@@ -33,16 +33,16 @@
 
 ## 实机截图
 
-以下展示基于真实 Mac 截图制作，保留 esai 的原始界面、状态栏花朵与弹窗尖角；周边网页和其他状态栏内容已移除。透明玻璃图保留面板内部的真实透色效果。
+以下展示基于真实 Mac 截图制作，保留 esai 原始界面。状态栏仅保留 esai 花朵；实色图清理周边内容，透明图保留桌面和网页背景，用于对比玻璃透色效果。
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/product-v2/multiple-apps.jpg" alt="一个计划，收好多个应用：esai 多应用关闭实机展示" /></td>
-<td width="50%"><img src="docs/screenshots/product-v2/transparent-glass.jpg" alt="轻轻透出桌面：esai 透明玻璃面板实机展示" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/multiple-apps.jpg" alt="esai 多应用关闭实机截图" /></td>
+<td width="50%"><img src="docs/screenshots/product-v2/transparent-glass.jpg" alt="esai 透明玻璃背景实机截图" /></td>
 </tr>
 </table>
 
-![属于你的颜色，属于你的 esai：强调色和外观设置实机展示](docs/screenshots/product-v2/appearance.jpg)
+![esai 外观与强调色设置实机截图](docs/screenshots/product-v2/appearance.jpg)
 
 ## 安装
 
