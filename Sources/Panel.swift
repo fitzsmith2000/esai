@@ -346,8 +346,7 @@ struct TimerPanel: View {
                 ],accent:accent,label:t("外观模式"))
             }
             VStack(alignment:.leading,spacing:8) {
-                Toggle(t("透明玻璃背景"),isOn:Binding(get:{model.glassBackground},set:{model.setGlassBackground($0)}))
-                    .toggleStyle(.switch).controlSize(.small).font(.callout.weight(.medium))
+                EsaiSwitchRow(title:t("透明玻璃背景"),isOn:Binding(get:{model.glassBackground},set:{model.setGlassBackground($0)}))
                 Text(t("面板会透出桌面背景；关闭后使用实色面板。"))
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal:false,vertical:true)
@@ -428,19 +427,21 @@ struct TimerPanel: View {
             }
             EsaiHairline()
             VStack(alignment:.leading,spacing:8) {
-                Text(t("通用")).font(.headline)
-                VStack(alignment:.leading,spacing:10) {
-                    Toggle(t("登录时启动"),isOn:Binding(get:{model.loginEnabled},set:{ if $0 != model.loginEnabled {model.toggleLogin()} }))
-                        .toggleStyle(.switch).controlSize(.small).font(.callout.weight(.medium))
-                    Text(t("登录电脑时自动运行 esai。定时开关会保留你的选择。"))
-                        .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal:false,vertical:true)
+                HStack {
+                    Text(t("通用")).font(.headline)
+                    Spacer()
+                    UpdateCheckButton(service:model.updates,language:model.resolvedLanguage)
+                }
+                VStack(alignment:.leading,spacing:12) {
+                    EsaiSwitchRow(title:t("登录时启动"),isOn:Binding(get:{model.loginEnabled},set:{ if $0 != model.loginEnabled {model.toggleLogin()} }))
                     if let message = model.loginMessage {
                         Text(message).font(.caption).foregroundStyle(.orange)
                         Button(t("打开登录项设置")) { model.openLoginSettings() }.font(.caption).esaiGlassButton()
                     }
+                    EsaiHairline()
+                    UpdateSettings(service:model.updates,language:model.resolvedLanguage)
                 }.frame(maxWidth:.infinity,alignment:.leading).padding(12).esaiCard()
             }
-            UpdateSettings(service:model.updates,language:model.resolvedLanguage)
             settingsRule("保持应用运行","退出应用会暂停调度。取消勾选可立即停用。")
             EsaiHairline()
             HStack(spacing:8) {

@@ -23,7 +23,7 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 - Six accent presets, custom HEX colors, and a color picker; light, dark, or system appearance.
 - English, Simplified Chinese, or automatic system language.
 - In-app update checks, optional automatic download and installation, and Ed25519 verification of the update feed and archive.
-- Local scheduling without accounts or telemetry. v1.6.0: approximately 2.16 MB DMG and 5.83 MB app.
+- Local scheduling without accounts or telemetry. v1.6.1: approximately 2.16 MB DMG and 5.80 MB app.
 
 ## Real Mac screenshots
 
@@ -58,11 +58,11 @@ The app must remain running. Quitting stops scheduling. You can enable launch at
 
 ## Updates
 
-Under **Settings → General → Software updates**, use **Check for Updates…** to open the native updater. Manual checks work even with automatic checks disabled.
+Under **Settings → General**, use **Check for Updates…** to open the native updater. Manual checks are always available.
 
-Automatic checks are on by default, approximately hourly while esai is running. Automatic download and installation are off by default. When enabled, Sparkle downloads and verifies updates in the background, then installs on quit or offers a restart prompt. Turning automatic checks off pauses background checks and automatic downloads. Settings and schedules are preserved.
+One **Automatic updates** switch controls background checks, downloads and installation. It defaults off; an existing automatic-installation opt-in is preserved. When enabled, esai checks approximately hourly while running, downloads and verifies updates in the background, then installs on quit or offers a restart prompt. Settings and schedules are preserved.
 
-**Versions 1.5.x and earlier need one manual installation of 1.6.0 first.** Later updates are available in the app. Releases are hosted on GitHub; network errors do not affect local scheduling and can be retried manually.
+**Versions 1.5.x and earlier need one manual installation of 1.6.0 or later first.** Later updates are available in the app. Releases are hosted on GitHub; network errors do not affect local scheduling and can be retried manually.
 
 ## Scheduling rules
 

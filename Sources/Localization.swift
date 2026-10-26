@@ -29,9 +29,7 @@ enum L10n {
     }
     static let english: [String:String] = [
         "软件更新":"Software updates", "检查更新…":"Check for Updates…",
-        "自动检查更新":"Automatically check for updates", "自动下载并安装更新":"Automatically download and install updates",
-        "每小时检查一次。自动安装默认关闭；开启后后台下载，并在退出时安装，或提示重新启动。":"Checks hourly. Automatic installation is off by default; enable to download in the background and install on quit, or be prompted to restart.",
-        "预览模式不检查或安装更新。":"Preview mode does not check for or install updates.", "上次检查：":"Last checked:",
+        "自动更新":"Automatic updates",
         "所选应用将按同一时间关闭。":"Selected apps share one shutdown schedule.",
         "清除搜索":"Clear search", "其他应用":"Other apps", "已选择":"Selected", "未选择":"Not selected",
         "选择即保存，可同时关闭多个应用。":"Selections are saved immediately. Multiple apps are supported.",

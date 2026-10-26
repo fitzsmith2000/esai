@@ -290,3 +290,18 @@ struct EsaiFooterGhostButton: View {
 }
 
 struct EsaiHairline: View { var body: some View { Rectangle().fill(EsaiSurface.hairline).frame(height:1) } }
+
+/// Keep switch alignment consistent across full-width settings rows.
+struct EsaiSwitchRow: View {
+    let title: String
+    @Binding var isOn: Bool
+    var body: some View {
+        HStack(spacing:12) {
+            Text(title).font(.callout.weight(.medium))
+            Spacer(minLength:12)
+            Toggle(title,isOn:$isOn)
+                .labelsHidden().toggleStyle(.switch).controlSize(.small).fixedSize()
+                .accessibilityLabel(title)
+        }.frame(maxWidth:.infinity,alignment:.leading)
+    }
+}

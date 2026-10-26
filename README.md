@@ -8,7 +8,7 @@
 
 原生 macOS 状态栏应用，按每日计划关闭微信或你选定的多个应用。
 
-[![Release](https://img.shields.io/badge/release-v1.6.0-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
+[![Release](https://img.shields.io/badge/release-v1.6.1-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
 ![macOS](https://img.shields.io/badge/macOS-13%2B-333333)
 ![Apple Silicon](https://img.shields.io/badge/Apple_Silicon-arm64-288653)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
@@ -29,8 +29,8 @@
 - **原生 Liquid Glass**：支持透明玻璃面板或实色背景；macOS 26 及以上支持玻璃控件和分段标签的流动切换，旧版系统使用兼容样式。
 - **更轻的交互**：3 pt 半透明无底色滚动条、小号启用开关；弹窗打开时主动取得焦点，修复首次显示偏暗的问题。
 - **你的颜色、你的语言**：六种经典强调色、自定义 HEX 和取色器；浅色、深色、跟随系统；简体中文、English、语言自动跟随。
-- **应用内更新**：「设置 → 通用」手动检查；运行时约每小时自动检查，可选择自动下载和安装。更新源与安装包均验证 Ed25519 签名。
-- **轻量、本地运行**：v1.6.0 的 DMG 约 **2.16 MB**，应用本体约 **5.83 MB**，无需登录账号。
+- **应用内更新**：「设置 → 通用」保留一个自动更新开关，统一控制检查、下载和安装，也可手动检查。更新源与安装包均验证 Ed25519 签名。
+- **轻量、本地运行**：v1.6.1 的 DMG 约 **2.16 MB**，应用本体约 **5.80 MB**，无需登录账号。
 
 ## 实机截图
 
@@ -55,7 +55,7 @@
 
 ### 手动安装
 
-1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.6.0-apple-silicon.dmg`。
+1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.6.1-apple-silicon.dmg`。
 2. 打开 DMG，将「esai 定时关闭」拖入 `Applications`。
 3. 打开应用，点击状态栏花朵图标。
 
@@ -73,14 +73,13 @@
 
 ## 检查更新与自动更新
 
-在「设置 → 通用 → 软件更新」中：
+在「设置 → 通用」中：
 
-- 点击「检查更新…」，打开原生更新窗口；关闭自动检查后仍可手动检查。
-- 「自动检查更新」默认开启，应用运行时约每小时检查一次。
-- 「自动下载并安装更新」默认关闭。开启后，Sparkle 在后台下载并验签，退出 esai 时安装，或提示重新启动；不会直接强制中断正在使用的应用。
-- 关闭自动检查会暂停后台检查与自动下载。计划、应用选择和其他偏好保留在本机，升级时保留。
+- 点击「检查更新…」，打开原生更新窗口，手动检查始终可用。
+- 「自动更新」开关统一控制后台检查、下载和安装，默认关闭；已启用自动安装的用户保留原选择。
+- 开启后，应用运行时约每小时检查，下载并验证签名，在退出 esai 时安装或提示重新启动。升级保留计划、应用选择和其他偏好。
 
-**1.5.x 及更早版本需要先手动安装一次 1.6.0；之后可在应用内升级。** 更新由 GitHub Release 提供，网络不可用时可稍后手动重试，不影响本地计划。当前包仍为 Apple Silicon 版本。
+**1.5.x 及更早版本需要先手动安装一次 1.6.0 或更新版本；之后可在应用内升级。** 更新由 GitHub Release 提供，网络不可用时可稍后手动重试，不影响本地计划。当前包仍为 Apple Silicon 版本。
 
 ## 时间与执行规则
 

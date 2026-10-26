@@ -300,6 +300,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     private var model: TimerModel!
     private var screenObserver: NSObjectProtocol?
     private var languageSubscription: AnyCancellable?
+    private var appearanceSubscription: AnyCancellable?
     private var localPanelMonitor: Any?
     private var globalPanelMonitor: Any?
     private var panelActivationObserver: NSObjectProtocol?
@@ -323,6 +324,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         statusItem.button?.target = self; statusItem.button?.action = #selector(togglePanel)
         popover = NSPopover(); popover.behavior = .applicationDefined; popover.delegate = self; popover.animates = false
         popover.contentViewController = PanelHostController(model:model)
+        appearanceSubscription = model.$appearance.removeDuplicates().sink { [weak self] preference in
+            self?.applyAppearance(preference)
+        }
         screenObserver = NotificationCenter.default.addObserver(forName:NSApplication.didChangeScreenParametersNotification,object:nil,queue:.main) { [weak self] _ in
             guard let self = self,self.popover.isShown else { return }
             self.fitPopoverToScreen()
@@ -334,8 +338,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
                 DispatchQueue.main.asyncAfter(deadline:.now()+0.5) {
                     let key = self.popover.contentViewController?.view.window?.isKeyWindow == true
                     let active = NSApp.isActive
-                    print("FOCUS_CHECK active=\(active) key=\(key) shown=\(self.popover.isShown)")
-                    guard active && key && self.popover.isShown else { exit(2) }
+                    let expected: NSAppearance.Name = CommandLine.arguments.contains("--preview-dark") ? .darkAqua : .aqua
+                    let nativeAppearance = self.popover.contentViewController?.view.window?.effectiveAppearance.bestMatch(from:[.aqua,.darkAqua])
+                    let matchingAppearance = nativeAppearance == expected
+                    print("FOCUS_CHECK active=\(active) key=\(key) shown=\(self.popover.isShown) appearance=\(nativeAppearance?.rawValue ?? "nil")")
+                    guard active && key && self.popover.isShown && matchingAppearance else { exit(2) }
                     NSApp.terminate(nil)
                 }
             }
@@ -349,11 +356,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         }
     }
 
+    private func applyAppearance(_ preference: String) {
+        let appearance: NSAppearance?
+        switch preference {
+        case "dark": appearance = NSAppearance(named:.darkAqua)
+        case "light": appearance = NSAppearance(named:.aqua)
+        default: appearance = nil // Inherit live system appearance; never pin a snapshot.
+        }
+        NSApp.appearance = appearance
+        popover.appearance = appearance
+        if let host = popover.contentViewController, host.isViewLoaded {
+            host.view.appearance = appearance
+            host.view.window?.appearance = appearance
+        }
+    }
+
     @objc func togglePanel() {
         if popover.isShown { popover.performClose(nil) }
         else if let button = statusItem.button {
             model.refreshLabels()
             fitPopoverToScreen()
+            applyAppearance(model.appearance)
             // Activate before showing so the first material frame is active.
             NSApp.activate(ignoringOtherApps:true)
             popover.show(relativeTo:button.bounds,of:button,preferredEdge:.minY)

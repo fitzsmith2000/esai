@@ -5,8 +5,8 @@ esai uses [Sparkle 2.10.1](https://sparkle-project.org/documentation/) for check
 ## Client behavior
 
 - Stable Apple Silicon feed: `https://raw.githubusercontent.com/fitzsmith2000/esai/main/updates/appcast-arm64.xml`.
-- Automatic checks default on, with a 3,600-second interval while running. Manual checks remain available when automatic checks are off.
-- Automatic download and installation default off. When enabled, Sparkle can install on normal quit or offer its standard restart prompt. esai does not force a background restart.
+- One automatic-update switch controls both Sparkle preferences. It defaults off, preserves an existing full opt-in, and migrates checking-only preferences to off. Native updater preference changes synchronize the two flags as well.
+- When enabled, checks run at a 3,600-second interval while running, followed by automatic download and installation on normal quit or Sparkle’s standard restart prompt. Manual checks remain available when automatic updates are off. esai does not force a background restart.
 - Feed and archive signatures are mandatory. The pinned Ed25519 public key is in `Resources/Info.plist`; an archive must verify before extraction.
 - Preferences remain in the existing `com.esai.wechat-timer` domain. Preview mode starts no updater and changes no update preferences.
 - Versions before 1.6.0 have no updater and require one manual installation.

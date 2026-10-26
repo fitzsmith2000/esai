@@ -6,6 +6,15 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     <link>https://github.com/fitzsmith2000/esai</link>
     <description>Stable signed updates for esai.</description>
     <item>
+      <title>esai 1.6.1</title>
+      <pubDate>Mon, 26 Oct 2026 06:20:53 GMT</pubDate>
+      <sparkle:version>15</sparkle:version>
+      <sparkle:shortVersionString>1.6.1</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description>精简为一个自动更新开关，合并到通用设置；所有设置开关靠右对齐，并修复原生弹窗与玻璃背景的深色外观。</description>
+      <enclosure url="https://github.com/fitzsmith2000/esai/releases/download/v1.6.1/esai-1.6.1-apple-silicon.zip" length="2229215" type="application/octet-stream" sparkle:edSignature="yWOeucJYcB8np69Re9p4FbFW4DdDKXpq3uXbZQVdTOHCNOW6PRwNZeJJJA+BEXzPWDkMutFe8g9pzPrRhPUYBw=="></enclosure>
+    </item>
+    <item>
       <title>esai 1.6.0</title>
       <pubDate>Mon, 26 Oct 2026 05:59:34 GMT</pubDate>
       <sparkle:version>14</sparkle:version>
@@ -16,6 +25,6 @@ IMPORTANT: This file was signed by Sparkle. Any modifications to this file requi
     </item>
   </channel>
 </rss><!-- sparkle-signatures:
-edSignature: AHD8UPw7GqJ7a0kuZvjGT3p93/vpZH29bwhLIKDUfMOE/35/pZvTI/tVayMhUDBbC4epUygitzmPSbE2X2+XAw==
-length: 1340
+edSignature: 5WZ2R57HWRZvRwayoTcy48lShmuEZDZY34ADOLbhzmTWLfXZV7T3Yyt5oOZce0LMEo5xuLOJFTP5BUYEhCubCQ==
+length: 2104
 -->
