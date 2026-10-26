@@ -440,6 +440,7 @@ struct TimerPanel: View {
                     }
                 }.frame(maxWidth:.infinity,alignment:.leading).padding(12).esaiCard()
             }
+            UpdateSettings(service:model.updates,language:model.resolvedLanguage)
             settingsRule("保持应用运行","退出应用会暂停调度。取消勾选可立即停用。")
             EsaiHairline()
             HStack(spacing:8) {

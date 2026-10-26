@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><!-- sparkle-sign-warning:
+IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+  <channel>
+    <title>esai updates (Apple Silicon)</title>
+    <link>https://github.com/fitzsmith2000/esai</link>
+    <description>Stable signed updates for esai.</description>
+    <item>
+      <title>esai 1.6.0</title>
+      <pubDate>Mon, 26 Oct 2026 05:59:34 GMT</pubDate>
+      <sparkle:version>14</sparkle:version>
+      <sparkle:shortVersionString>1.6.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+      <description>新增应用内检查更新、每小时自动检查，以及可选的自动下载和安装。更新源与安装包均经过 Ed25519 签名验证。</description>
+      <enclosure url="https://github.com/fitzsmith2000/esai/releases/download/v1.6.0/esai-1.6.0-apple-silicon.zip" length="2234656" type="application/octet-stream" sparkle:edSignature="cXC1U/tsnKqu3etf/OqbnkM/YYRJzh21Z608i7zbC8nsv4fQXGStKbGzUmFofk1C599qSI7ajT/C3Es7feBRBQ=="></enclosure>
+    </item>
+  </channel>
+</rss><!-- sparkle-signatures:
+edSignature: AHD8UPw7GqJ7a0kuZvjGT3p93/vpZH29bwhLIKDUfMOE/35/pZvTI/tVayMhUDBbC4epUygitzmPSbE2X2+XAw==
+length: 1340
+-->

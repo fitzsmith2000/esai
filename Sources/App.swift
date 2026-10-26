@@ -17,6 +17,7 @@ final class TimerModel: ObservableObject {
     @Published var applicationError: String?
     private var lastResultArguments: [String] = []
     let navigation = PanelNavigation()
+    let updates: UpdateService
     @Published var loginEnabled = false
     @Published private var loginError: String?
     @Published private var loginNeedsApproval = false
@@ -38,6 +39,7 @@ final class TimerModel: ObservableObject {
 
     init(preview: Bool = false) {
         self.preview = preview
+        updates = UpdateService(enabled:!preview)
         defaults = preview ? UserDefaults(suiteName: "com.esai.wechat-timer.preview")! : .standard
         if !preview, let data = defaults.data(forKey: "schedule"), let saved = try? JSONDecoder().decode(ScheduleState.self, from: data) {
             state = saved
@@ -308,6 +310,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         let preview = CommandLine.arguments.contains("--preview") || CommandLine.arguments.contains("--ui-check") || CommandLine.arguments.contains("--focus-check")
         if preview { NSApp.appearance = NSAppearance(named:CommandLine.arguments.contains("--preview-dark") ? .darkAqua : .aqua) }
         model = TimerModel(preview:preview)
+        model.updates.start()
         statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
         if let url = Bundle.main.url(forResource:"EsaiStatusTemplate",withExtension:"pdf"), let image = NSImage(contentsOf:url) {
             image.size = NSSize(width:18,height:18); image.isTemplate = true

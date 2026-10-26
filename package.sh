@@ -13,4 +13,9 @@ image_path="$project_root/dist/esai-$version-apple-silicon.dmg"
 hdiutil create -ov -volname "esai 定时关闭" -srcfolder "$stage" -fs HFS+ -format UDZO -imagekey zlib-level=9 "$image_path"
 hdiutil verify "$image_path"
 (cd "$project_root/dist" && shasum -a 256 "${image_path:t}" > "${image_path:t}.sha256")
+archive_path="$project_root/dist/esai-$version-apple-silicon.zip"
+# Sparkle installs the app-only ZIP; the DMG remains the first-install experience.
+ditto -c -k --sequesterRsrc --keepParent "$app_bundle" "$archive_path"
+(cd "$project_root/dist" && shasum -a 256 "${archive_path:t}" > "${archive_path:t}.sha256")
 print -r -- "$image_path"
+print -r -- "$archive_path"

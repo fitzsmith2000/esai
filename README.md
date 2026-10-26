@@ -8,7 +8,7 @@
 
 原生 macOS 状态栏应用，按每日计划关闭微信或你选定的多个应用。
 
-[![Release](https://img.shields.io/badge/release-v1.5.6-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
+[![Release](https://img.shields.io/badge/release-v1.6.0-288653)](https://github.com/fitzsmith2000/esai/releases/latest)
 ![macOS](https://img.shields.io/badge/macOS-13%2B-333333)
 ![Apple Silicon](https://img.shields.io/badge/Apple_Silicon-arm64-288653)
 [![License](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
@@ -29,7 +29,8 @@
 - **原生 Liquid Glass**：支持透明玻璃面板或实色背景；macOS 26 及以上支持玻璃控件和分段标签的流动切换，旧版系统使用兼容样式。
 - **更轻的交互**：3 pt 半透明无底色滚动条、小号启用开关；弹窗打开时主动取得焦点，修复首次显示偏暗的问题。
 - **你的颜色、你的语言**：六种经典强调色、自定义 HEX 和取色器；浅色、深色、跟随系统；简体中文、English、语言自动跟随。
-- **轻量、本地运行**：v1.5.6 的 DMG 约 **1.97 MB**，应用本体约 **2.83 MB**，无需登录账号。
+- **应用内更新**：「设置 → 通用」手动检查；运行时约每小时自动检查，可选择自动下载和安装。更新源与安装包均验证 Ed25519 签名。
+- **轻量、本地运行**：v1.6.0 的 DMG 约 **2.16 MB**，应用本体约 **5.83 MB**，无需登录账号。
 
 ## 实机截图
 
@@ -54,7 +55,7 @@
 
 ### 手动安装
 
-1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.5.6-apple-silicon.dmg`。
+1. 前往 [GitHub Releases](https://github.com/fitzsmith2000/esai/releases/latest) 下载 `esai-1.6.0-apple-silicon.dmg`。
 2. 打开 DMG，将「esai 定时关闭」拖入 `Applications`。
 3. 打开应用，点击状态栏花朵图标。
 
@@ -66,9 +67,20 @@
 2. 在「设置 → 计划」选择小时、分钟和时区，查看换算预览，点击「保存时间」。默认计划为 **每天 10:40 UTC**。
 3. 返回首页，勾选「启用」。
 
-设置分为「计划」「关闭应用」「外观」「通用」四页。首页的「关闭计划」直接进入时间设置，「管理应用」直接进入应用选择。「通用」中可设置语言与登录启动。
+设置分为「计划」「关闭应用」「外观」「通用」四页。首页的「关闭计划」直接进入时间设置，「管理应用」直接进入应用选择。「通用」中可设置语言、登录启动和软件更新。
 
 **任务会强制关闭所选应用，未保存的内容可能丢失。** 请仅选择你希望到点关闭的软件。
+
+## 检查更新与自动更新
+
+在「设置 → 通用 → 软件更新」中：
+
+- 点击「检查更新…」，打开原生更新窗口；关闭自动检查后仍可手动检查。
+- 「自动检查更新」默认开启，应用运行时约每小时检查一次。
+- 「自动下载并安装更新」默认关闭。开启后，Sparkle 在后台下载并验签，退出 esai 时安装，或提示重新启动；不会直接强制中断正在使用的应用。
+- 关闭自动检查会暂停后台检查与自动下载。计划、应用选择和其他偏好保留在本机，升级时保留。
+
+**1.5.x 及更早版本需要先手动安装一次 1.6.0；之后可在应用内升级。** 更新由 GitHub Release 提供，网络不可用时可稍后手动重试，不影响本地计划。当前包仍为 Apple Silicon 版本。
 
 ## 时间与执行规则
 
@@ -93,7 +105,7 @@
 
 ## 隐私
 
-计划、应用选择、外观、语言与执行记录保存在本机偏好设置中。应用在本地读取已安装应用的信息和运行状态，不上传这些数据，也没有账号登录、遥测或网络请求功能。不需要辅助功能或自动化权限。
+计划、应用选择、外观、语言与执行记录保存在本机偏好设置中。应用在本地读取已安装应用的信息和运行状态，不上传这些数据，也没有账号登录或遥测。启用自动检查或手动检查时，会从 GitHub 获取版本信息；下载更新时连接 GitHub Release。更新请求不携带计划、应用列表或执行记录。不需要辅助功能或自动化权限。
 
 ## 从源码构建
 
@@ -105,13 +117,13 @@ cd esai
 zsh build.sh
 ```
 
-生成应用：`build/esai 定时关闭.app`。图标、许可证和构建脚本均包含在仓库内，无需下载参考项目。
+生成应用：`build/esai 定时关闭.app`。图标、许可证和构建脚本均包含在仓库内，无需下载参考项目。首次构建会下载固定版本的 Sparkle 2.10.1 并校验 SHA-256；运行时框架随应用一起分发。
 
 ```sh
 # 时间规则、偏好迁移、多应用执行等逻辑检查；不关闭真实应用
 zsh test.sh
 
-# 构建应用，并生成可拖入 Applications 的压缩 DMG
+# 构建应用，并生成首次安装 DMG 和 Sparkle 更新 ZIP
 zsh package.sh
 ```
 
@@ -123,6 +135,8 @@ ESAI_PREVIEW_PATH="$PWD/build/preview.png" \
 ```
 
 预览可附加 `--preview-settings`、`--preview-apps`、`--preview-colors`、`--preview-general` 或 `--preview-dark`。
+
+维护者发布已签名更新的流程见 [更新发布说明](docs/UPDATES.md)。
 
 ## 致谢与许可证
 

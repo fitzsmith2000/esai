@@ -1,0 +1,2 @@
+# Signed Sparkle feeds must remain byte-for-byte identical across platforms.
+updates/appcast-*.xml -text

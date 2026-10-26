@@ -22,7 +22,8 @@ A native macOS menu bar app that closes WeChat or multiple selected apps on a da
 - Trackless 3 pt translucent scrollbar and a compact enable switch. Popovers take focus when opened to fix the initially dim appearance.
 - Six accent presets, custom HEX colors, and a color picker; light, dark, or system appearance.
 - English, Simplified Chinese, or automatic system language.
-- Local operation without accounts or telemetry. v1.5.6: approximately 1.97 MB DMG and 2.83 MB app.
+- In-app update checks, optional automatic download and installation, and Ed25519 verification of the update feed and archive.
+- Local scheduling without accounts or telemetry. v1.6.0: approximately 2.16 MB DMG and 5.83 MB app.
 
 ## Real Mac screenshots
 
@@ -55,6 +56,14 @@ This release is ad-hoc signed and has not been notarized by Apple. If macOS bloc
 
 The app must remain running. Quitting stops scheduling. You can enable launch at login under General settings.
 
+## Updates
+
+Under **Settings → General → Software updates**, use **Check for Updates…** to open the native updater. Manual checks work even with automatic checks disabled.
+
+Automatic checks are on by default, approximately hourly while esai is running. Automatic download and installation are off by default. When enabled, Sparkle downloads and verifies updates in the background, then installs on quit or offers a restart prompt. Turning automatic checks off pauses background checks and automatic downloads. Settings and schedules are preserved.
+
+**Versions 1.5.x and earlier need one manual installation of 1.6.0 first.** Later updates are available in the app. Releases are hosted on GitHub; network errors do not affect local scheduling and can be retried manually.
+
 ## Scheduling rules
 
 Regional schedules preserve their local wall-clock time across daylight saving changes; UTC schedules stay fixed. Changing your Mac's time zone only changes the conversion display.
@@ -67,7 +76,7 @@ All selected apps share one schedule. Clearing the selection disables scheduling
 
 ## Privacy
 
-Settings and execution records stay in local preferences. Installed app information and running status are read locally and are not uploaded. No accounts, telemetry, network requests, Accessibility permission, or Automation permission are required for normal operation.
+Settings and execution records stay in local preferences. Installed app information and running status are read locally and are not uploaded. There are no accounts or telemetry. Manual or enabled automatic update checks fetch version information from GitHub; update downloads use GitHub Release. Requests do not include your schedule, app selection, or execution records. Local scheduling does not require a network connection, Accessibility permission, or Automation permission.
 
 ## Build
 
@@ -81,7 +90,7 @@ zsh test.sh
 zsh package.sh
 ```
 
-The app is generated in `build/`; the compressed installer is generated in `dist/`. The logic tests do not terminate real apps.
+The app is generated in `build/`; the DMG and update ZIP are generated in `dist/`. The first build downloads pinned Sparkle 2.10.1 and verifies its SHA-256. The logic tests do not terminate real apps. See [update publishing](docs/UPDATES.md) for signing and releasing updates.
 
 ## Credits and license
 
